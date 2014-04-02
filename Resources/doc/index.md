@@ -320,6 +320,15 @@ bazinga_js_translation:
     default_domain:       messages
 ```
 
+#### Available Locales
+
+By default, all locales are used when translation are added. You can define available locales used without authorize all locales:
+
+``` yaml
+bazinga_js_translation:
+    available_locales:     [en, fr]
+```
+
 
 Reference Configuration
 -----------------------
@@ -329,6 +338,9 @@ Reference Configuration
 bazinga_js_translation:
     locale_fallback:      en
     default_domain:       messages
+    # List of available locales
+    available_locales:    [] # Example: [en, fr]
+
 ```
 
 
