@@ -48,12 +48,18 @@ class TranslationDumper
     private $defaultDomain;
 
     /**
+     * @var array
+     */
+    private $availableLocales;
+
+    /**
      * @param EngineInterface   $engine         The engine.
      * @param TranslationFinder $finder         The translation finder.
      * @param RouterInterface   $router         The router.
      * @param FileSystem        $filesystem     The file system.
      * @param string            $localeFallback
      * @param string            $defaultDomain
+     * @param array             $availableLocales
      */
     public function __construct(
         EngineInterface $engine,
@@ -61,14 +67,16 @@ class TranslationDumper
         RouterInterface $router,
         Filesystem $filesystem,
         $localeFallback = '',
-        $defaultDomain  = ''
+        $defaultDomain  = '',
+        array $availableLocales  = array()
     ) {
-        $this->engine         = $engine;
-        $this->finder         = $finder;
-        $this->router         = $router;
-        $this->filesystem     = $filesystem;
-        $this->localeFallback = $localeFallback;
-        $this->defaultDomain  = $defaultDomain;
+        $this->engine            = $engine;
+        $this->finder            = $finder;
+        $this->router            = $router;
+        $this->filesystem        = $filesystem;
+        $this->localeFallback    = $localeFallback;
+        $this->defaultDomain     = $defaultDomain;
+        $this->availableLocales  = $availableLocales;
     }
 
     /**
@@ -172,6 +180,10 @@ class TranslationDumper
         $translations = array();
         foreach ($this->finder->all() as $file) {
             list($extension, $locale, $domain) = $this->getFileInfo($file);
+
+            if (!empty($this->availableLocales) && !in_array($locale, $this->availableLocales)) {
+                continue;
+            }
 
             if (!isset($translations[$locale])) {
                 $translations[$locale] = array();

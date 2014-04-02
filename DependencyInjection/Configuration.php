@@ -23,6 +23,11 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('locale_fallback')->defaultValue('en')->end()
                 ->scalarNode('default_domain')->defaultValue('messages')->end()
+                ->arrayNode('available_locales')
+                    ->info('List of available locales')
+                    ->example('[en, fr]')
+                    ->prototype('scalar')->end()
+                ->end()
             ->end();
 
         return $builder;

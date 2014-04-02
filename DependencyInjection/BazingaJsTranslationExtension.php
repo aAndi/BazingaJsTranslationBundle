@@ -34,6 +34,7 @@ class BazingaJsTranslationExtension extends Extension
         $container
             ->getDefinition('bazinga.jstranslation.translation_dumper')
             ->replaceArgument(4, $config['locale_fallback'])
-            ->replaceArgument(5, $config['default_domain']);
+            ->replaceArgument(5, $config['default_domain'])
+            ->replaceArgument(6, $config['available_locales']);
     }
 }
